@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / C extensions
+__pycache__/
+*.pyc
+
+
+# Python Virtual Environment
+# Path is relative to the .gitignore file in the root
+Backend/venv/
+
+
+# Django Database File
+Backend/db.sqlite3
+
+
+# Frontend Dependencies
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+
+# OS / Editor specific
+.DS_Store
+.vscode/

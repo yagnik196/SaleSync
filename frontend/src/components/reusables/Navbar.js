@@ -26,7 +26,7 @@ function Navbar() {
         {isLoggedin ? (
           <div className="flex items-center gap-3 cursor-pointer relative group">
             <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold shadow-md">
-              {user?.name ? user.name[0].toUpperCase() : "U"}  // first letter of name
+              {user?.name ? user.name[0].toUpperCase() : "U"}  {/* first letter of name*/}
             </div>
             <span className="text-gray-800 font-medium hover:text-gray-600 transition">{user?.name || "User"}
             </span>
