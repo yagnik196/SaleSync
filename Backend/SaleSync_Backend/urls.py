@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from accounts.views import DashboardView, ProfileView, SaveVideoView
+from proofs.views import ProofViewSet
 
 # We need to import the pre-built views from the Simple JWT library
 from rest_framework_simplejwt.views import (
@@ -28,4 +30,9 @@ urlpatterns = [
     # URLs for JWT authentication
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('api/dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('api/save-video/', SaveVideoView.as_view(), name='save_video'),
+
+    path('api/', include(router.urls)), 
 ]

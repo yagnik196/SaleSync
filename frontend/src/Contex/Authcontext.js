@@ -20,7 +20,7 @@ export function AuthProvider({children}){
     const handleLogin =({token:newtoken,user:newuser})=>{
         if(!newtoken) return;
         localStorage.setItem("authtoken",newtoken);
-        localStorage.setItem("authuser",newuser);
+        localStorage.setItem("authuser",JSON.stringify(newuser));
         settoken(newtoken);
         setuser(newuser);
         setLoggedin(1);
