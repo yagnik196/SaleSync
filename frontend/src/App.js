@@ -1,10 +1,16 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
 import Approutes from "./Routes/Routes"
 import './App.css';
-import { AuthProvider } from './Contex/Authcontext';
+import { AuthProvider, setupAxiosInterceptors } from './Contex/Authcontext';
 import Navbar from './components/reusables/Navbar';
 
 function App() {
+  useEffect(() => {
+    // Setup axios interceptors when app loads
+    setupAxiosInterceptors();
+  }, []);
+
   return (
     <AuthProvider>
       <BrowserRouter>

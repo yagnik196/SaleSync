@@ -26,17 +26,23 @@ function Navbar() {
         {isLoggedin ? (
           <div className="flex items-center gap-3 cursor-pointer relative group">
             <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold shadow-md">
-              {user?.name ? user.name[0].toUpperCase() : "U"}  {/* first letter of name*/}
+              {user?.first_name ? user.first_name[0].toUpperCase() : "U"}
             </div>
-            <span className="text-gray-800 font-medium hover:text-gray-600 transition">{user?.name || "User"}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-gray-800 font-medium hover:text-gray-600 transition">
+                {user?.first_name && user?.last_name 
+                  ? `${user.first_name} ${user.last_name}` 
+                  : user?.username || "User"}
+              </span>
+              <span className="text-xs text-gray-500">@{user?.username || "user"}</span>
+            </div>
 
-            {/* Dropdown placeholder */}
-            <div className="absolute right-0 mt-20 w-40 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
+            {/* Dropdown menu */}
+            <div className="absolute right-0 mt-20 w-40 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
               <ul className="flex flex-col">
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>Logout</li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700">Profile</li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700">Settings</li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600 border-t" onClick={handleLogout}>Logout</li>
               </ul>
             </div>
           </div>

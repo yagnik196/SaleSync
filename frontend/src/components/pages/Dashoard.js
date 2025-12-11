@@ -23,7 +23,7 @@ const handleproof = (flow) => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">
-        Welcome, {user?.name || "Guest"} 🎉
+        Welcome, {user?.first_name || user?.username || "Guest"} 🎉
       </h1>
 
       <h2 className="text-xl font-semibold mb-4">Available Proofings</h2>

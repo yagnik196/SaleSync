@@ -15,30 +15,50 @@ function Login() {
     e.preventDefault();
     setError(""); // Clear previous errors
 
+    // Backend call to authenticate user
     try {
-      // Make the POST request to your Django backend
-      const response = await axios.post("http://127.0.0.1:8000/api/token/", {
-        // IMPORTANT: Django expects 'username', but your form has 'email'.
-        // For now, we'll send the email value as the username.
-        username: email,
-        password: password,
+      const response = await axios.post(
+        "http://localhost:8000/api/auth/login/",
+        {
+          username: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Extract tokens and user data from response
+      const { tokens, user } = response.data;
+
+      // Call handleLogin with tokens and user info
+      handleLogin({
+        token: tokens.access,
+        user: {
+          username: user.username,
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          refreshToken: tokens.refresh,
+        },
       });
 
-      // Assuming a successful login, the response will have tokens
-      const accessToken = response.data.access;
-
-      // Use your existing context to handle the login state
-      // We'll pass the token and a user object.
-      // In a real app, you might make another API call to get user details.
-      handleLogin({ token: accessToken, user: { email: email } });
-
-      // Navigate to the dashboard on successful login
-      navigate("/Dashboard");
-
+      // Navigate to dashboard on successful login
+      navigate("/dashboard");
     } catch (err) {
-      // Handle login errors (e.g., wrong password)
-      console.error("Login failed:", err);
-      setError("Invalid username or password. Please try again.");
+      // Handle login errors
+      if (err.response && err.response.status === 401) {
+        setError("Invalid username or password");
+      } else if (err.response) {
+        setError(err.response.data.error || "Login failed. Please try again.");
+      } else if (err.request) {
+        setError("Network error. Please check your connection.");
+      } else {
+        setError("An unexpected error occurred.");
+      }
+      console.error("Login error:", err);
     }
   };
 
